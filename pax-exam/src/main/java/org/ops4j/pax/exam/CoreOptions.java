@@ -39,6 +39,7 @@ import org.ops4j.pax.exam.options.MavenArtifactProvisionOption;
 import org.ops4j.pax.exam.options.MavenArtifactUrlReference;
 import org.ops4j.pax.exam.options.MavenPluginGeneratedConfigOption;
 import org.ops4j.pax.exam.options.OptionalCompositeOption;
+import org.ops4j.pax.exam.options.PapooseFrameworkOption;
 import org.ops4j.pax.exam.options.ProvisionOption;
 import org.ops4j.pax.exam.options.RawUrlReference;
 import org.ops4j.pax.exam.options.SystemPackageOption;
@@ -221,7 +222,30 @@ public class CoreOptions
     }
 
     /**
-     * Creates a composite option of latest versions of Felix, Equinox and Knopflerfish.
+     * Creates a {@link PapooseFrameworkOption}.
+     *
+     * @return papoose framework option
+     */
+    public static PapooseFrameworkOption papoose()
+    {
+        return new PapooseFrameworkOption();
+    }
+
+    /**
+     * Creates a composite option of all {@link PapooseFrameworkOption} versions (up to the date of Pax Exam
+     * release).
+     *
+     * @return all Papoose framework versions composite option
+     */
+    public static Option allPapooseVersions()
+    {
+        return composite(
+                papoose().version( "1.0.0" )
+        );
+    }
+
+    /**
+     * Creates a composite option of latest versions of Felix, Equinox, Knopflerfish, and Papoose.
      *
      * @return latest versions of all frameworks composite option
      */
@@ -230,12 +254,13 @@ public class CoreOptions
         return composite(
             felix(),
             equinox(),
-            knopflerfish()
+            knopflerfish(),
+            papoose()
         );
     }
 
     /**
-     * Creates a composite option of all versions of Felix, Equinox and Knopflerfish.
+     * Creates a composite option of all versions of Felix, Equinox, Knopflerfish, and Papoose.
      *
      * @return all framework versions composite option
      */
@@ -244,7 +269,8 @@ public class CoreOptions
         return composite(
             allFelixVersions(),
             allEquinoxVersions(),
-            allKnopflerfishVersions()
+            allKnopflerfishVersions(),
+            allPapooseVersions()
         );
     }
 
